@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bucket Truck Team Hub</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        // Image Verification Script
+        function verifyImage(fileInput) {
+            const file = fileInput.files[0];
+            if (file) {
+                const img = new Image();
+                img.src = URL.createObjectURL(file);
+                img.onload = () => {
+                    if (img.width < 800 || img.height < 600) {
+                        alert("Image quality is too low. Please upload an image with higher resolution.");
+                        fileInput.value = ""; // Clear the file input
+                    }
+                };
+                img.onerror = () => {
+                    alert("Invalid image file. Please upload a valid image.");
+                    fileInput.value = ""; // Clear the file input
+                };
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo-container">
+            <img src="logo.png" alt="Company Logo" class="logo">
+        </div>
+        <h1>Bucket Truck Team Hub</h1>
+    </header>
+
+    <!-- Main Content Section -->
+    <main>
+        <!-- User Login Section -->
+        <section class="login">
+            <h2>Login</h2>
+            <form action="/login" method="post">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Login</button>
+            </form>
+        </section>
+
+        <!-- Admin Dashboard Section -->
+        <section class="admin-dashboard">
+            <h2>Admin Dashboard</h2>
+            <button onclick="window.location.href='/truck-database'">Manage Bucket Trucks</button>
+            <button onclick="window.location.href='/inventory'">Manage Inventory</button>
+        </section>
+
+        <!-- Truck Database Section -->
+        <section class="truck-database">
+            <h2>Truck Database</h2>
+            <div class="truck-list">
+                <!-- Example Truck Entry -->
+                <div class="truck-item">
+                    <img src="truck1.jpg" alt="Bucket Truck Image">
+                    <p>Site Number: 123</p>
+                    <p>Category: 4-Wheel Drive</p>
+                    <p>Nickname: Big Red</p>
+                    <p>VIN: ABC123456789</p>
+                </div>
+                <!-- Add more trucks dynamically -->
+            </div>
+        </section>
+
+        <!-- Daily Ticket Upload Section -->
+        <section class="ticket-upload">
+            <h2>Daily Ticket Upload</h2>
+            <form action="/upload-ticket" method="post" enctype="multipart/form-data">
+                <label for="truck">Select Truck:</label>
+                <select id="truck" name="truck">
+                    <option value="truck1">Big Red</option>
+                    <option value="truck2">Blue Beast</option>
+                    <!-- More options dynamically populated -->
+                </select>
+                <label for="ticket-image">Upload Ticket Image:</label>
+                <input type="file" id="ticket-image" name="ticket-image" required onchange="verifyImage(this)">
+                <label for="ticket-category">Ticket Category:</label>
+                <select id="ticket-category" name="ticket-category">
+                    <option value="hanger">Hanger</option>
+                    <option value="leaner-6-11">Leaner 6-11.99</option>
+                    <option value="leaner-12-23">Leaner 12-23.99</option>
+                    <option value="leaner-24-35">Leaner 24-35.99</option>
+                    <option value="leaner-36">Leaner 36+</option>
+                </select>
+                <button type="submit">Upload Ticket</button>
+            </form>
+        </section>
+
+        <!-- Inventory Section -->
+        <section class="inventory">
+            <h2>Inventory</h2>
+            <form action="/add-tool" method="post">
+                <label for="tool-name">Tool Name:</label>
+                <input type="text" id="tool-name" name="tool-name" required>
+                <button type="submit">Add Tool</button>
+            </form>
+            <div class="inventory-list">
+                <!-- Example Tool Entry -->
+                <div class="tool-item">
+                    <p>Tool: Chainsaw Model X</p>
+                    <p>Assigned to Truck: Big Red</p>
+                </div>
+                <!-- Add more tools dynamically -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <p>&copy; 2024 Your Company Name. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
